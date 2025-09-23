@@ -66,6 +66,10 @@ public class User {
 		this.rankingPoints = points;
 	}
 	
+	public void updateRankingPoints(int points) {
+		this.rankingPoints += points;
+	}
+	
 	public ZonedDateTime getCreateDate() {
 		return this.createdAt;
 	}

@@ -11,6 +11,7 @@ import br.edu.infnet.tenisdemesaapi.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
+	@Query("select u from User u where email = ?1")
 	User findByEmail(String email);
 	
 	@Query("select u from User u where id = ?1")

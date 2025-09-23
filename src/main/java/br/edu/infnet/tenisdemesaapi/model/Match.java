@@ -78,7 +78,6 @@ public class Match {
     }
 
 	public void setStatus(MatchStatus status) {
-		// TODO Auto-generated method stub
 		this.status = status;
 	}
 	
@@ -87,9 +86,15 @@ public class Match {
 			this.games = new ArrayList<Game>();
 		}
 		this.games.add(game);
+		
+		updateMatchStatus();
 	}
 	
-	public boolean checkEndMatch() {
+	public User getWinner() {
+		return winner;
+	}
+	
+	public void updateMatchStatus() {
 		var gamesCount = games.size();
 		var gamesToWin = (bestOf + 1) /2;
 		
@@ -102,9 +107,7 @@ public class Match {
 			if(winner != null) {
 				this.winner = winner;
 				this.status = MatchStatus.FINISHED;
-				return true;
 			}
 		}
-		return false;
 	}
 }

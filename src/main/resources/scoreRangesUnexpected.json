@@ -1,0 +1,55 @@
+[
+		{
+			"lowBound": 0,
+			"highBound": 24,
+			"winnerMultiplier": 11,
+			"loserMultiplier": -9
+		},
+		{
+			"lowBound": 25,
+			"highBound": 49,
+			"winnerMultiplier": 12,
+			"loserMultiplier": -10
+		},
+		{
+			"lowBound": 50,
+			"highBound": 99,
+			"winnerMultiplier": 14,
+			"loserMultiplier": -11
+		},
+		{
+			"lowBound": 100,
+			"highBound": 149,
+			"winnerMultiplier": 16,
+			"loserMultiplier": -12
+		},
+		{
+			"lowBound": 150,
+			"highBound": 199,
+			"winnerMultiplier": 18,
+			"loserMultiplier": -14
+		},
+		{
+			"lowBound": 200,
+			"highBound": 299,
+			"winnerMultiplier": 20,
+			"loserMultiplier": -16
+		},
+		{
+			"lowBound": 300,
+			"highBound": 399,
+			"winnerMultiplier": 23,
+			"loserMultiplier": -18
+		},
+		{
+			"lowBound": 400,
+			"highBound": 499,
+			"winnerMultiplier": 26,
+			"loserMultiplier": -20
+		},
+		{
+			"lowBound": 500,
+			"highBound": 100000,
+			"winnerMultiplier": 30,
+			"loserMultiplier": -22
+		}

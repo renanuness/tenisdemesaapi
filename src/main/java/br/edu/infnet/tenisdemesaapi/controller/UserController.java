@@ -1,23 +1,26 @@
 package br.edu.infnet.tenisdemesaapi.controller;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import br.edu.infnet.tenisdemesaapi.dto.LoginDTO;
 import br.edu.infnet.tenisdemesaapi.dto.LoginResponseDTO;
 import br.edu.infnet.tenisdemesaapi.dto.RegisterDTO;
 import br.edu.infnet.tenisdemesaapi.dto.UpdateEmailDTO;
 import br.edu.infnet.tenisdemesaapi.dto.UserDTO;
+import br.edu.infnet.tenisdemesaapi.exception.InternalServerErrorException;
 import br.edu.infnet.tenisdemesaapi.model.User;
 import br.edu.infnet.tenisdemesaapi.service.UserService;
 
@@ -33,12 +36,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody RegisterDTO model){
-		var response = userService.register(model);
+	public ResponseEntity<UserDTO> register(@RequestBody RegisterDTO model) throws URISyntaxException{
+		var user = userService.register(model);
 		
-		return ResponseEntity.ok().body("Registrado com sucesso");
+		var url = getUserURI(user.getId());
+		var response = new UserDTO(user.getId(), user.getName(), user.getEmail());
+		return ResponseEntity.created(url).body(response);
 	}
 	
+	private URI getUserURI(Long id) {
+		try {
+			return new URI("/api/user/"+id);
+		}catch(URISyntaxException ex) {
+			throw new InternalServerErrorException();
+		}
+	}
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDTO model){
 		var user = userService.login(model);
@@ -47,6 +59,14 @@ public class UserController {
 			return ResponseEntity.badRequest().body(LoginResponseDTO.fail());
 		}
 		var  response = LoginResponseDTO.success(user);
+		return ResponseEntity.ok().body(response);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<UserDTO> user(@PathVariable long id){
+		var user = userService.getById(id);
+		
+		var response = new UserDTO(user.getId(), user.getName(), user.getEmail());
 		return ResponseEntity.ok().body(response);
 	}
 	
@@ -64,5 +84,4 @@ public class UserController {
 		var response = new UserDTO(user.getId(), user.getName(), user.getEmail());
 		return ResponseEntity.ok().body(response);
 	}
-
 }

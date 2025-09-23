@@ -61,11 +61,7 @@ public class MatchController {
 	
 	//AddGameResult
 	@PostMapping("addGameResult")
-	public ResponseEntity<Match> addGameResult(@RequestHeader Long userId, @RequestBody Long matchId, @RequestBody short playerAScore, @RequestBody short playerBScore){
-		var result = new ResultDTO();
-		result.matchId = matchId;
-		result.playerAScore = playerAScore;
-		result.playerBScore = playerBScore;
+	public ResponseEntity<Match> addGameResult(@RequestHeader Long userId, @RequestBody ResultDTO result){
 		var match = matchService.addGameResult(result);
 		return ResponseEntity.ok().body(match);
 	}

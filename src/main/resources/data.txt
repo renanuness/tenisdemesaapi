@@ -1,0 +1,3 @@
+'João Silva','joao.silva@email.com','senha123',1200
+'Maria Santos','maria.santos@email.com','senha456',950
+'Pedro Costa','pedro.costa@email.com','senha789',1100
